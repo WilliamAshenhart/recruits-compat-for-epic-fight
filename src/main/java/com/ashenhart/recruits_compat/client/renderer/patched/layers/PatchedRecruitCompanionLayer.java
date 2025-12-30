@@ -1,6 +1,6 @@
-package com.ashenhart.epic_fight_musket_compat.client.renderer.patched.layers;
+package com.ashenhart.recruits_compat.client.renderer.patched.layers;
 
-import com.ashenhart.epic_fight_musket_compat.world.capabilities.entitypatch.mob.AbstractRecruitPatch;
+import com.ashenhart.recruits_compat.world.capabilities.entitypatch.mob.AbstractRecruitPatch;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.talhanation.recruits.client.models.RecruitVillagerModel;
 import com.talhanation.recruits.entities.AbstractRecruitEntity;

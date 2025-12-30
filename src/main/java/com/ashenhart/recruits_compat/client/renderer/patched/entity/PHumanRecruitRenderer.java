@@ -1,8 +1,8 @@
-package com.ashenhart.epic_fight_musket_compat.client.renderer.patched.entity;
+package com.ashenhart.recruits_compat.client.renderer.patched.entity;
 
-import com.ashenhart.epic_fight_musket_compat.client.renderer.patched.layers.PatchedHumanRecruitBiomeLayer;
-import com.ashenhart.epic_fight_musket_compat.client.renderer.patched.layers.PatchedHumanRecruitCompanionLayer;
-import com.ashenhart.epic_fight_musket_compat.world.capabilities.entitypatch.mob.AbstractRecruitPatch;
+import com.ashenhart.recruits_compat.client.renderer.patched.layers.PatchedHumanRecruitBiomeLayer;
+import com.ashenhart.recruits_compat.client.renderer.patched.layers.PatchedHumanRecruitCompanionLayer;
+import com.ashenhart.recruits_compat.world.capabilities.entitypatch.mob.AbstractRecruitPatch;
 import com.talhanation.recruits.client.models.RecruitVillagerModel;
 import com.talhanation.recruits.client.render.layer.RecruitHumanBiomeLayer;
 import com.talhanation.recruits.client.render.layer.RecruitHumanCompanionLayer;

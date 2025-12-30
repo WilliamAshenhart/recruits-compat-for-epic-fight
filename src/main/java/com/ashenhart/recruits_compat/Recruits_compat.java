@@ -14,7 +14,7 @@ public class Recruits_compat {
     public static final String MODID = "recruits_compat";
     public Recruits_compat(FMLJavaModLoadingContext eventBus) {
         IEventBus bus = eventBus.getModEventBus();
-        MinecraftForge.EVENT_BUS(this);
+        MinecraftForge.EVENT_BUS.register(this);
         bus.addListener(RecruitAnimations::registerAnimations);
     }
 
