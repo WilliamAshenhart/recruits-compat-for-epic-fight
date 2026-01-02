@@ -25,4 +25,12 @@ public class RecruitMobCombatBehaviours {
                     CombatBehaviors.BehaviorSeries.<HumanoidMobPatch<?>>builder().weight(50.0F).canBeInterrupted(false).looping(true).cooldown(100)
                             .nextBehavior(CombatBehaviors.Behavior.<HumanoidMobPatch<?>>builder().animationBehavior(RecruitAnimations.RECRUIT_SPEAR_AUTO_1).withinEyeHeight().withinDistance(0.0D, 3.0D))
             );
+    public static final CombatBehaviors.Builder<HumanoidMobPatch<?>> RECRUIT_LONGSWORD = CombatBehaviors.<HumanoidMobPatch<?>>builder()
+            .newBehaviorSeries(
+                    CombatBehaviors.BehaviorSeries.<HumanoidMobPatch<?>>builder().weight(100.0F).canBeInterrupted(false).looping(true)
+                            .nextBehavior(CombatBehaviors.Behavior.<HumanoidMobPatch<?>>builder().animationBehavior(RecruitAnimations.RECRUIT_LONGSWORD_AUTO_1).withinEyeHeight().withinDistance(0.0D, 2.5D))
+                            .nextBehavior(CombatBehaviors.Behavior.<HumanoidMobPatch<?>>builder().animationBehavior(RecruitAnimations.RECRUIT_LONGSWORD_AUTO_2).withinEyeHeight().withinDistance(0.0D, 2.5D))
+                            .nextBehavior(CombatBehaviors.Behavior.<HumanoidMobPatch<?>>builder().animationBehavior(RecruitAnimations.RECRUIT_LONGSWORD_AUTO_3).withinEyeHeight().withinDistance(0.0D, 2.5D))
+                            .nextBehavior(CombatBehaviors.Behavior.<HumanoidMobPatch<?>>builder().animationBehavior(RecruitAnimations.RECRUIT_LONGSWORD_AUTO_4).withinEyeHeight().withinDistance(0.0D, 2.5D))
+            );
 }

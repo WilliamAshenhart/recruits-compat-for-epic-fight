@@ -1,6 +1,6 @@
 package com.ashenhart.recruits_compat.client.renderer.patched.layers;
 
-import com.ashenhart.recruits_compat.world.capabilities.entitypatch.mob.AbstractRecruitPatch;
+import com.ashenhart.recruits_compat.world.capabilities.entitypatch.mob.RecruitPatch;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.talhanation.recruits.client.models.RecruitVillagerModel;
 import com.talhanation.recruits.entities.AbstractRecruitEntity;
@@ -18,7 +18,7 @@ import yesman.epicfight.client.mesh.VillagerMesh;
 import yesman.epicfight.client.renderer.patched.layer.ModelRenderLayer;
 
 @OnlyIn(Dist.CLIENT)
-public class PatchedRecruitBiomeLayer extends ModelRenderLayer<AbstractRecruitEntity, AbstractRecruitPatch<AbstractRecruitEntity>, RecruitVillagerModel, RenderLayer<AbstractRecruitEntity, RecruitVillagerModel>, VillagerMesh> {
+public class PatchedRecruitBiomeLayer extends ModelRenderLayer<AbstractRecruitEntity, RecruitPatch<AbstractRecruitEntity>, RecruitVillagerModel, RenderLayer<AbstractRecruitEntity, RecruitVillagerModel>, VillagerMesh> {
     private static final ResourceLocation[] BIOME_TEXTURE = new ResourceLocation[]{
             ResourceLocation.fromNamespaceAndPath("recruits", "textures/entity/villager/biome/villager_desert.png"),
             ResourceLocation.fromNamespaceAndPath("recruits", "textures/entity/villager/biome/villager_jungle.png"),
@@ -35,7 +35,7 @@ public class PatchedRecruitBiomeLayer extends ModelRenderLayer<AbstractRecruitEn
 
 
     @Override
-    protected void renderLayer(AbstractRecruitPatch<AbstractRecruitEntity> entitypatch, AbstractRecruitEntity entityliving, RenderLayer<AbstractRecruitEntity, RecruitVillagerModel> vanillaLayer, PoseStack postStack, MultiBufferSource buffer, int packedLight,
+    protected void renderLayer(RecruitPatch<AbstractRecruitEntity> entitypatch, AbstractRecruitEntity entityliving, RenderLayer<AbstractRecruitEntity, RecruitVillagerModel> vanillaLayer, PoseStack postStack, MultiBufferSource buffer, int packedLight,
                                OpenMatrix4f[] poses, float bob, float yRot, float xRot, float partialTicks) {
 
         if (!entityliving.isInvisible()) {

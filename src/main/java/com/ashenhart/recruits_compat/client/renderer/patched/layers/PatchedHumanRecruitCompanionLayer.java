@@ -1,6 +1,6 @@
 package com.ashenhart.recruits_compat.client.renderer.patched.layers;
 
-import com.ashenhart.recruits_compat.world.capabilities.entitypatch.mob.AbstractRecruitPatch;
+import com.ashenhart.recruits_compat.world.capabilities.entitypatch.mob.RecruitPatch;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.talhanation.recruits.client.models.RecruitVillagerModel;
 import com.talhanation.recruits.entities.AbstractRecruitEntity;
@@ -15,7 +15,7 @@ import yesman.epicfight.api.utils.math.OpenMatrix4f;
 import yesman.epicfight.client.mesh.HumanoidMesh;
 import yesman.epicfight.client.renderer.patched.layer.ModelRenderLayer;
 
-public class PatchedHumanRecruitCompanionLayer extends ModelRenderLayer<AbstractRecruitEntity, AbstractRecruitPatch<AbstractRecruitEntity>, RecruitVillagerModel, RenderLayer<AbstractRecruitEntity, RecruitVillagerModel>, HumanoidMesh> {
+public class PatchedHumanRecruitCompanionLayer extends ModelRenderLayer<AbstractRecruitEntity, RecruitPatch<AbstractRecruitEntity>, RecruitVillagerModel, RenderLayer<AbstractRecruitEntity, RecruitVillagerModel>, HumanoidMesh> {
     private static final ResourceLocation LOCATION =
             ResourceLocation.fromNamespaceAndPath("recruits", "textures/entity/human/human_assassin_cloth.png");
     public PatchedHumanRecruitCompanionLayer() {
@@ -23,7 +23,7 @@ public class PatchedHumanRecruitCompanionLayer extends ModelRenderLayer<Abstract
     }
 
     @Override
-    protected void renderLayer(AbstractRecruitPatch<AbstractRecruitEntity> entitypatch, AbstractRecruitEntity entityliving, RenderLayer<AbstractRecruitEntity, RecruitVillagerModel> vanillaLayer, PoseStack postStack, MultiBufferSource buffer, int packedLight,
+    protected void renderLayer(RecruitPatch<AbstractRecruitEntity> entitypatch, AbstractRecruitEntity entityliving, RenderLayer<AbstractRecruitEntity, RecruitVillagerModel> vanillaLayer, PoseStack postStack, MultiBufferSource buffer, int packedLight,
                                OpenMatrix4f[] poses, float bob, float yRot, float xRot, float partialTicks) {
         if (!entityliving.isInvisible() && entityliving instanceof ICompanion) {
             this.mesh.get().draw(postStack, buffer, RenderType.entityCutoutNoCull(LOCATION),
