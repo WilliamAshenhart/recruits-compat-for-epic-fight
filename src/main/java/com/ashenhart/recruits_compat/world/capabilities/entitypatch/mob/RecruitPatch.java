@@ -4,6 +4,9 @@ import com.ashenhart.recruits_compat.gameassets.RecruitAnimations;
 import com.ashenhart.recruits_compat.gameassets.RecruitMobCombatBehaviours;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
+import com.talhanation.recruits.entities.ai.RecruitEatGoal;
+import com.talhanation.recruits.entities.ai.RecruitFloatGoal;
+import com.talhanation.recruits.entities.ai.RecruitMeleeAttackGoal;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.item.ShieldItem;
@@ -56,22 +59,27 @@ public class RecruitPatch<T extends PathfinderMob> extends HumanoidMobPatch<T> {
                         Pair.of(LivingMotions.CHASE, Animations.BIPED_WALK_SPEAR)
                 )
         ));
-        this.weaponLivingMotions.put(CapabilityItem.WeaponCategories.LONGSWORD, ImmutableMap.of(
-                CapabilityItem.Styles.TWO_HAND, Set.of(
-                        Pair.of(LivingMotions.IDLE, RecruitAnimations.RECRUIT_LONGSWORD_LIVING),
-                        Pair.of(LivingMotions.WALK, RecruitAnimations.RECRUIT_LONGSWORD_LIVING),
-                        Pair.of(LivingMotions.CHASE, RecruitAnimations.RECRUIT_LONGSWORD_LIVING)
-                )
-        ));
 
         this.weaponAttackMotions.put(CapabilityItem.WeaponCategories.SPEAR, ImmutableMap.of(CapabilityItem.Styles.TWO_HAND, RecruitMobCombatBehaviours.RECRUIT_SPEAR, CapabilityItem.Styles.ONE_HAND, RecruitMobCombatBehaviours.RECRUIT_SPEAR_ONE_HAND));
-        this.weaponAttackMotions.put(CapabilityItem.WeaponCategories.LONGSWORD, ImmutableMap.of(CapabilityItem.Styles.TWO_HAND, RecruitMobCombatBehaviours.RECRUIT_LONGSWORD, CapabilityItem.Styles.ONE_HAND, MobCombatBehaviors.HUMANOID_ONEHAND_TOOLS));
+        this.weaponAttackMotions.put(CapabilityItem.WeaponCategories.LONGSWORD, ImmutableMap.of(CapabilityItem.Styles.TWO_HAND, MobCombatBehaviors.HUMANOID_LONGSWORD, CapabilityItem.Styles.ONE_HAND, MobCombatBehaviors.HUMANOID_ONEHAND_TOOLS));
     }
 
     @Override
     public void setAIAsInfantry(boolean holdingRanedWeapon) {
+        this.original.goalSelector.getAvailableGoals().removeIf(goal ->
+                goal.getGoal() instanceof RecruitMeleeAttackGoal ||
+                goal.getGoal() instanceof RecruitEatGoal ||
+                goal.getGoal() instanceof RecruitFloatGoal ||
+                goal.getGoal().getClass().getName().contains("Attack")
+        );
+
         if (!holdingRanedWeapon) {
-            super.setAIAsInfantry(holdingRanedWeapon);
+            CombatBehaviors.Builder<HumanoidMobPatch<?>> builder = this.getHoldingItemWeaponMotionBuilder();
+
+            if (builder != null) {
+                this.original.goalSelector.addGoal(0, new AnimatedAttackGoal<>(this, builder.build(this)));
+                this.original.goalSelector.addGoal(1, new TargetChasingGoal(this, this.original, 1.2D, true));
+            }
         }
     }
 
@@ -82,7 +90,6 @@ public class RecruitPatch<T extends PathfinderMob> extends HumanoidMobPatch<T> {
             this.currentCompositeMotion = LivingMotions.BLOCK_SHIELD;
         }
     }
-
     @Override
     public void setAIAsMounted(Entity ridingEntity) {
     }
