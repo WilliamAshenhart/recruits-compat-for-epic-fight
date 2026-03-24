@@ -161,7 +161,7 @@ dependencies {
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
-    implementation fg.deobf("curse.maven:epic-fight-mod-405076:7345468")
+    implementation fg.deobf("curse.maven:epic-fight-mod-405076:7789099")
     implementation fg.deobf("curse.maven:recruits-523860:7302116")
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar

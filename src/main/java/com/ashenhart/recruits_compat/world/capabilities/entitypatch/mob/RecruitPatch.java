@@ -4,11 +4,11 @@ import com.ashenhart.recruits_compat.gameassets.RecruitAnimations;
 import com.ashenhart.recruits_compat.gameassets.RecruitMobCombatBehaviours;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
-import com.talhanation.recruits.entities.ai.RecruitEatGoal;
-import com.talhanation.recruits.entities.ai.RecruitFloatGoal;
 import com.talhanation.recruits.entities.ai.RecruitMeleeAttackGoal;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 import yesman.epicfight.api.animation.Animator;
 import yesman.epicfight.api.animation.LivingMotions;
@@ -18,7 +18,6 @@ import yesman.epicfight.world.capabilities.entitypatch.Factions;
 import yesman.epicfight.world.capabilities.entitypatch.HumanoidMobPatch;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 import yesman.epicfight.world.entity.ai.goal.AnimatedAttackGoal;
-import yesman.epicfight.world.entity.ai.goal.CombatBehaviors;
 import yesman.epicfight.world.entity.ai.goal.TargetChasingGoal;
 
 import java.util.Set;
@@ -49,14 +48,14 @@ public class RecruitPatch<T extends PathfinderMob> extends HumanoidMobPatch<T> {
         super.setWeaponMotions();
         this.weaponLivingMotions.put(CapabilityItem.WeaponCategories.SPEAR, ImmutableMap.of(
                 CapabilityItem.Styles.TWO_HAND, Set.of(
-                        Pair.of(LivingMotions.IDLE, RecruitAnimations.RECRUIT_SPEAR_LIVING),
-                        Pair.of(LivingMotions.WALK, RecruitAnimations.RECRUIT_SPEAR_LIVING),
-                        Pair.of(LivingMotions.CHASE, RecruitAnimations.RECRUIT_SPEAR_LIVING)
+                        Pair.of(LivingMotions.IDLE, RecruitAnimations.HOLD_RECRUIT_SPEAR),
+                        Pair.of(LivingMotions.WALK, RecruitAnimations.HOLD_RECRUIT_SPEAR),
+                        Pair.of(LivingMotions.CHASE, RecruitAnimations.HOLD_RECRUIT_SPEAR)
                 ),
                 CapabilityItem.Styles.ONE_HAND, Set.of(
-                        Pair.of(LivingMotions.IDLE, Animations.BIPED_HOLD_SPEAR),
-                        Pair.of(LivingMotions.WALK, Animations.BIPED_WALK_SPEAR),
-                        Pair.of(LivingMotions.CHASE, Animations.BIPED_WALK_SPEAR)
+                        Pair.of(LivingMotions.IDLE, RecruitAnimations.HOLD_RECRUIT_SPEAR_ONE_HAND),
+                        Pair.of(LivingMotions.WALK, RecruitAnimations.HOLD_RECRUIT_SPEAR_ONE_HAND),
+                        Pair.of(LivingMotions.CHASE, RecruitAnimations.HOLD_RECRUIT_SPEAR_ONE_HAND)
                 )
         ));
 
@@ -67,19 +66,16 @@ public class RecruitPatch<T extends PathfinderMob> extends HumanoidMobPatch<T> {
     @Override
     public void setAIAsInfantry(boolean holdingRanedWeapon) {
         this.original.goalSelector.getAvailableGoals().removeIf(goal ->
-                goal.getGoal() instanceof RecruitMeleeAttackGoal ||
-                goal.getGoal() instanceof RecruitEatGoal ||
-                goal.getGoal() instanceof RecruitFloatGoal ||
-                goal.getGoal().getClass().getName().contains("Attack")
+                goal.getGoal() instanceof RecruitMeleeAttackGoal
         );
-
+        this.original.goalSelector.getAvailableGoals().removeIf(goal ->
+                goal.getGoal() instanceof AnimatedAttackGoal
+        );
+        this.original.goalSelector.getAvailableGoals().removeIf(goal ->
+                goal.getGoal() instanceof TargetChasingGoal
+        );
         if (!holdingRanedWeapon) {
-            CombatBehaviors.Builder<HumanoidMobPatch<?>> builder = this.getHoldingItemWeaponMotionBuilder();
-
-            if (builder != null) {
-                this.original.goalSelector.addGoal(0, new AnimatedAttackGoal<>(this, builder.build(this)));
-                this.original.goalSelector.addGoal(1, new TargetChasingGoal(this, this.original, 1.2D, true));
-            }
+            super.setAIAsInfantry(holdingRanedWeapon);
         }
     }
 
@@ -90,7 +86,20 @@ public class RecruitPatch<T extends PathfinderMob> extends HumanoidMobPatch<T> {
             this.currentCompositeMotion = LivingMotions.BLOCK_SHIELD;
         }
     }
+
     @Override
     public void setAIAsMounted(Entity ridingEntity) {
     }
+
+    @Override
+    public void updateHeldItem(CapabilityItem fromCap, CapabilityItem toCap,
+                               ItemStack from, ItemStack to, InteractionHand hand) {
+        if (this.getEntityState().attacking()) {
+            this.modifyLivingMotionByCurrentItem(false);
+            return;
+        }
+
+        super.updateHeldItem(fromCap, toCap, from, to, hand);
+    }
+
 }
