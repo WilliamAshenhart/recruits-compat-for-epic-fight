@@ -55,7 +55,8 @@ public class RecruitPatch<T extends PathfinderMob> extends HumanoidMobPatch<T> {
                 CapabilityItem.Styles.ONE_HAND, Set.of(
                         Pair.of(LivingMotions.IDLE, RecruitAnimations.HOLD_RECRUIT_SPEAR_ONE_HAND),
                         Pair.of(LivingMotions.WALK, RecruitAnimations.HOLD_RECRUIT_SPEAR_ONE_HAND),
-                        Pair.of(LivingMotions.CHASE, RecruitAnimations.HOLD_RECRUIT_SPEAR_ONE_HAND)
+                        Pair.of(LivingMotions.CHASE, RecruitAnimations.HOLD_RECRUIT_SPEAR_ONE_HAND),
+                        Pair.of(LivingMotions.BLOCK_SHIELD, RecruitAnimations.BLOCK_RECRUIT_SPEAR)
                 )
         ));
 
