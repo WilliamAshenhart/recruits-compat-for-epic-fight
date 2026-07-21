@@ -59,9 +59,16 @@ public class RecruitPatch<T extends PathfinderMob> extends HumanoidMobPatch<T> {
                         Pair.of(LivingMotions.BLOCK_SHIELD, RecruitAnimations.BLOCK_RECRUIT_SPEAR)
                 )
         ));
+        this.weaponLivingMotions.put(CapabilityItem.WeaponCategories.LONGSWORD, ImmutableMap.of(
+                CapabilityItem.Styles.TWO_HAND, Set.of(
+                        Pair.of(LivingMotions.IDLE, RecruitAnimations.HOLD_RECRUIT_LONGSWORD),
+                        Pair.of(LivingMotions.WALK, RecruitAnimations.HOLD_RECRUIT_LONGSWORD),
+                        Pair.of(LivingMotions.CHASE, RecruitAnimations.HOLD_RECRUIT_LONGSWORD)
+                )
+        ));
 
         this.weaponAttackMotions.put(CapabilityItem.WeaponCategories.SPEAR, ImmutableMap.of(CapabilityItem.Styles.TWO_HAND, RecruitMobCombatBehaviours.RECRUIT_SPEAR, CapabilityItem.Styles.ONE_HAND, RecruitMobCombatBehaviours.RECRUIT_SPEAR_ONE_HAND));
-        this.weaponAttackMotions.put(CapabilityItem.WeaponCategories.LONGSWORD, ImmutableMap.of(CapabilityItem.Styles.TWO_HAND, MobCombatBehaviors.HUMANOID_LONGSWORD, CapabilityItem.Styles.ONE_HAND, MobCombatBehaviors.HUMANOID_ONEHAND_TOOLS));
+        this.weaponAttackMotions.put(CapabilityItem.WeaponCategories.LONGSWORD, ImmutableMap.of(CapabilityItem.Styles.TWO_HAND, RecruitMobCombatBehaviours.RECRUIT_LONGSWORD, CapabilityItem.Styles.ONE_HAND, MobCombatBehaviors.HUMANOID_ONEHAND_TOOLS));
     }
 
     @Override

@@ -15,9 +15,9 @@ import java.util.Set;
 
 public class RecruitAnimations {
     public static AnimationManager.AnimationAccessor<StaticAnimation> HOLD_RECRUIT_SPEAR;
-    public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_AUTO_1;
-    public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_AUTO_3;
     public static AnimationManager.AnimationAccessor<StaticAnimation> HOLD_RECRUIT_SPEAR_ONE_HAND;
+    public static AnimationManager.AnimationAccessor<StaticAnimation> HOLD_RECRUIT_LONGSWORD;
+
     public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_ONE_HAND_AUTO_1;
     public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_ONE_HAND_AUTO_2;
     public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_ONE_HAND_AUTO_3;
@@ -26,7 +26,16 @@ public class RecruitAnimations {
     public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_TWO_HAND_AUTO_2;
     public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_TWO_HAND_AUTO_3;
     public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_TWO_HAND_AUTO_4;
+    public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_TWO_HAND_AUTO_5;
     public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_SPEAR_TWO_HAND_AUTO_6;
+
+    public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_LONGSWORD_AUTO_1;
+    public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_LONGSWORD_AUTO_2;
+    public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_LONGSWORD_AUTO_3;
+    public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_LONGSWORD_AUTO_1_2ND;
+    public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_LONGSWORD_AUTO_2_2ND;
+    public static AnimationManager.AnimationAccessor<AttackAnimation> RECRUIT_LONGSWORD_AUTO_3_2ND;
+
     public static AnimationManager.AnimationAccessor<StaticAnimation> BLOCK_RECRUIT_SPEAR;
 
 
@@ -36,13 +45,9 @@ public class RecruitAnimations {
     }
     public static void build(AnimationManager.AnimationBuilder builder) {
         HOLD_RECRUIT_SPEAR = builder.nextAccessor("biped/living/hold_recruit_spear", (accessor) -> new StaticAnimation(true, accessor, Armatures.BIPED));
-        RECRUIT_SPEAR_AUTO_1 = builder.nextAccessor("biped/combat/recruit_spear_auto_1", (accessor) ->
-                new AttackAnimation(0.15F, 0.2F, 0.3F, 0.5F, 1.5F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
-                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.2F));
-        RECRUIT_SPEAR_AUTO_3 = builder.nextAccessor("biped/combat/recruit_spear_auto_3", (accessor) ->
-                new AttackAnimation(0.15F, 0.5F, 0.55F, 0.6F, 1.6F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
-                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.2F));
         HOLD_RECRUIT_SPEAR_ONE_HAND = builder.nextAccessor("biped/living/hold_recruit_spear_one_hand", (accessor) -> new StaticAnimation(true, accessor, Armatures.BIPED));
+        HOLD_RECRUIT_LONGSWORD = builder.nextAccessor("biped/living/hold_recruit_longsword", (accessor) -> new StaticAnimation(true, accessor, Armatures.BIPED));
+
         RECRUIT_SPEAR_ONE_HAND_AUTO_1 = builder.nextAccessor("biped/combat/recruit_spear_one_hand_auto_1", (accessor) ->
                 new AttackAnimation(0.15F, 0.4F, 0.5F, 0.7F, 1.2F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
                         .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.3F));
@@ -74,9 +79,30 @@ public class RecruitAnimations {
         RECRUIT_SPEAR_TWO_HAND_AUTO_4 = builder.nextAccessor("biped/combat/recruit_spear_two_hand_auto_4", (accessor) ->
                 new AttackAnimation(0.15F, 0.6F, 1.0F, 1.5F, 1.65F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
                         .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.1F));
-        RECRUIT_SPEAR_TWO_HAND_AUTO_6 = builder.nextAccessor("biped/combat/recruit_spear_two_hand_auto_6", (accessor) ->
-                new AttackAnimation(0.15F, 0.3F, 0.35F, 0.4F, 1.4F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
+        RECRUIT_SPEAR_TWO_HAND_AUTO_5 = builder.nextAccessor("biped/combat/recruit_spear_two_hand_auto_5", (accessor) ->
+                new AttackAnimation(0.15F, 0.6F, 0.65F, 0.8F, 1.1F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
                         .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.2F));
+        RECRUIT_SPEAR_TWO_HAND_AUTO_6 = builder.nextAccessor("biped/combat/recruit_spear_two_hand_auto_6", (accessor) ->
+                new AttackAnimation(0.15F, 0.3F, 0.35F, 0.4F, 0.6F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.2F));
+        RECRUIT_LONGSWORD_AUTO_1 = builder.nextAccessor("biped/combat/recruit_longsword_auto_1", (accessor) ->
+                new AttackAnimation(0.15F, 0.3F, 0.35F, 0.6F, 0.69F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.4F));
+        RECRUIT_LONGSWORD_AUTO_2 = builder.nextAccessor("biped/combat/recruit_longsword_auto_2", (accessor) ->
+                new AttackAnimation(0.15F, 0.3F, 0.35F, 0.42F, 0.5F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.4F));
+        RECRUIT_LONGSWORD_AUTO_3 = builder.nextAccessor("biped/combat/recruit_longsword_auto_3", (accessor) ->
+                new AttackAnimation(0.15F, 0.3F, 0.35F, 0.5F, 0.6F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.4F));
+        RECRUIT_LONGSWORD_AUTO_1_2ND = builder.nextAccessor("biped/combat/recruit_longsword_auto_1_2nd", (accessor) ->
+                new AttackAnimation(0.15F, 0.3F, 0.35F, 0.6F, 0.69F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.4F));
+        RECRUIT_LONGSWORD_AUTO_2_2ND = builder.nextAccessor("biped/combat/recruit_longsword_auto_2_2nd", (accessor) ->
+                new AttackAnimation(0.15F, 0.3F, 0.35F, 0.4F, 0.5F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.4F));
+        RECRUIT_LONGSWORD_AUTO_3_2ND = builder.nextAccessor("biped/combat/recruit_longsword_auto_3_2nd", (accessor) ->
+                new AttackAnimation(0.15F, 0.3F, 0.35F, 0.5F, 0.6F, null, Armatures.BIPED.get().toolR, accessor, Armatures.BIPED)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED,1.4F));
         BLOCK_RECRUIT_SPEAR = builder.nextAccessor("biped/skill/block_recruit_spear", (accessor) -> new StaticAnimation(0.25F,true, accessor, Armatures.BIPED));
     }
 }
